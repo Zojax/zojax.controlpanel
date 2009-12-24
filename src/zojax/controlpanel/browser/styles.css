@@ -1,0 +1,197 @@
+/* zrt-cssregistry: */
+
+@media all {
+
+  #z-controlpanel {
+    margin: 1.5em;
+    padding: 1em;
+    border: borderWidth borderStyle globalBorderColor;
+    background-color: globalBackgroundColor;
+    font-size: 100%;
+  }
+
+  .z-controlpanel-wrapper { 
+    padding-bottom: 1em;
+  }
+
+  #z-controlpanel #z-space {
+    margin: 0;
+  }
+
+  #z-controlpanel #z-content {
+    margin: font-size: 110%;
+  }
+
+  #z-controlpanel #z-portal-workspace {
+    padding: 0;
+    background-color: globalBackgroundColor;
+  }
+
+  #z-controlpanel #z-preferences { 
+    border: 0;
+    margin: 0;
+    padding: 0.5em;
+  }
+
+  #z-controlpanel h1 {
+    padding: 0;
+    font-weight: bold;
+  }
+
+  #z-controlpanel .z-cp-description { 
+    margin-bottom: 1em;
+  }
+
+  #z-controlpanel table.z-cp-layout { 
+    width: 100%;
+  }
+  
+  #z-controlpanel table.z-cp-layout tr { 
+    vertical-align: top;
+  }
+  
+  #z-controlpanel .z-cp-frame {
+    padding: 1em;
+    border: borderWidth borderStyle globalExtraBorderColor;
+    background: contentBackgroundColor;
+  }
+  
+  #z-controlpanel .z-cp-nav-wrapper {
+    padding-right: 1.5em;
+    width: 200px;
+    font-size: 110%;
+  }
+  
+  #z-controlpanel .z-cp-nav {
+    border: borderWidth borderStyle globalBorderColor;
+    border-bottom: none;
+    background: contentBackgroundColor;
+    font-size: fontSmallSize;
+  }
+  
+  #z-controlpanel .z-cp-nav a {
+    text-decoration: none;
+  }
+  
+  #z-controlpanel .z-cp-nav-item {
+    padding: 0.8em 0.4em 0.5em 0.4em;
+    border-bottom: borderWidth borderStyle globalBorderColor;
+  }
+  
+  #z-controlpanel .z-cp-nav-item-selected {
+    padding: 0.8em 0.4em 0.5em 0.4em;
+    background-color: globalBackgroundColor;
+    border-bottom: borderWidth borderStyle globalBorderColor;
+  }
+  
+  #z-controlpanel .z-cp-nav-item:hover {
+    background-color: globalBackgroundColor;
+  }
+  
+  #z-controlpanel .z-cp-nav-item li span {
+    border: 0;
+    border-bottom: 1px dotted discreetColor;
+  }
+  
+  
+  ul.z-cp-listing {
+    margin: 0.5em 0;
+    list-style: none;
+    list-style-image: none;
+    list-style-type: none;
+  }
+  
+  ul.z-cp-listing li {
+    clear: both;
+    margin-bottom: 0.5em;
+    list-style: none;
+    list-style-image: none;
+  }
+  
+  ul.z-cp-listing li .z-cp-icon {
+    float: left;
+    padding-top: 8px;
+    padding-right: 0.5em;
+    height: 32px;
+  }
+  
+  ul.z-cp-listing li a,
+  ul.z-cp-listing li .z-cp-details a {
+    color: linkColor;
+    border: 0;
+    border-bottom: 1px dotted discreetColor;
+    text-decoration: none;
+  }
+  
+  ul.z-cp-listing li a:visited,
+  ul.z-cp-listing li .z-cp-details a:visited {
+    color: linkColor;
+    background-color: transparent;
+  }
+  
+  ul.z-cp-listing li a:active,
+  ul.z-cp-listing li .z-cp-details a:active {
+    color: linkColor;
+    background-color: transparent;
+  }
+  
+  ul.z-cp-listing li span {
+    border: 0;
+    border-bottom: 1px dotted discreetColor;
+  }
+  
+  ul.z-cp-listing li .z-cp-details span a {
+    border-bottom: 0px;
+  }
+  
+  ul.z-cp-listing li label {
+    font-weight: bold;
+    border-bottom: borderWidth dotted discreetColor;
+  }
+  
+  ul.z-cp-listing li {
+    border: 1px solid contentBackgroundColor;
+  }
+  
+  ul.z-cp-listing li .z-cp-details div {
+    color: discreetColor;
+    font-size: fontSmallSize;
+  }
+  
+  ul.z-cp-listing li ul.z-cp-listing {
+    margin-left: 1.5em;
+    font-size: 110%;
+  }
+  
+  ul.z-cp-listing li .z-cp-details div span {
+    color: discreetColor;
+    font-size: fontSmallSize;
+    border: 0;
+  }
+
+  .z-cp-level1 {
+    padding-left: 0.8em;
+  }
+  
+  .z-cp-level2 {
+    padding-left: 1.6em;
+  }
+  
+  .z-cp-level3 {
+    padding-left: 2.4em;
+  }
+  
+  .z-cp-level4 {
+    padding-left: 3.2em;
+  }
+  
+  #z-controlpanel .z-form-add,
+  #z-controlpanel .z-form-edit,
+  #z-controlpanel .z-form-standard {
+    padding: 1em;
+    margin-top: 0em;
+    margin-bottom: 1em;
+    background: contentBackgroundColor;
+    border: borderWidth borderStyle globalExtraBorderColor;
+  }
+}

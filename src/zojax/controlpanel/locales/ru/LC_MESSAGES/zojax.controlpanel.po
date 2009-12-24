@@ -1,0 +1,62 @@
+# #############################################################################
+#
+# Copyright (c) 2003-2004 Zope Foundation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+# #############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: zojax.controlpanel\n"
+"POT-Creation-Date: Wed Oct 22 13:17:55 2008\n"
+"PO-Revision-Date: 2008-10-22 13:22+0600\n"
+"Last-Translator: Nikolay Kim <fafhrd91@gmail.com>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/controlpanel/browser/category.pt:8
+msgid "There are no configlets in this category."
+msgstr "В этой категории нет конфиглетов."
+
+#: src/zojax/controlpanel/browser/configure.zcml:24
+msgid "View"
+msgstr "Просмотр"
+
+#: src/zojax/controlpanel/configlettype.py:193
+msgid "Field is readonly"
+msgstr "Поле только для чтения"
+
+#: src/zojax/controlpanel/configure.zcml:42
+msgid "This area allows you to configure system."
+msgstr "Конфиглеты в этой категории позволяют вам конфигурировать систему."
+
+#: src/zojax/controlpanel/configure.zcml:42
+msgid "System configuration"
+msgstr "Конфигурация системы"
+
+#: src/zojax/controlpanel/configure.zcml:50
+msgid "User interface configuration"
+msgstr "Конфигурация пользовательского интерфейса"
+
+#: src/zojax/controlpanel/configure.zcml:50
+msgid "This area allows you to configure portal look&feel."
+msgstr "Конфиглеты в этой категории позволяют вам конфигурировать как выглядит сайт."
+
+#: src/zojax/controlpanel/configure.zcml:9
+msgid "Configure control panel's configlets."
+msgstr ""
+
+#: src/zojax/controlpanel/root.py:36
+#: src/zojax/controlpanel/browser/configure.zcml:53
+#: src/zojax/controlpanel/browser/configure.zcml:60
+msgid "System settings"
+msgstr "Системные установки"

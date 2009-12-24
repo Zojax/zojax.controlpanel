@@ -1,0 +1,41 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser">
+
+  <zojax:configlet
+     name="category1"
+     schema=".interfaces.ICategory1"
+     title="Category1"
+     description="Category 1 area."
+     provides="zojax.controlpanel.interfaces.ICategory"
+     permission="zope.Public" />
+
+  <zojax:configlet
+     name="category2"
+     schema=".interfaces.ICategory2"
+     title="Category2"
+     description="Category 2 area."
+     provides="zojax.controlpanel.interfaces.ICategory"
+     permission="zope.Public" />
+
+  <zojax:configlet
+     name="category2.configlet1"
+     schema=".interfaces.IConfiglet1"
+     title="Configlet1"
+     permission="zope.Public" />
+
+  <zojax:configlet
+     name="category2.configlet2"
+     schema=".interfaces.IConfiglet2"
+     title="Configlet2"
+     permission="zope.Public" />
+
+  <zojax:configlet
+     name="category2.configlet3"
+     schema=".interfaces.IConfiglet3"
+     title="Configlet3"
+     tests=".interfaces.notAvailable"
+     permission="zope.Public" />
+
+</configure>

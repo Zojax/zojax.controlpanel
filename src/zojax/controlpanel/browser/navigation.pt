@@ -1,0 +1,23 @@
+<tal:block tal:repeat="viewlet view/viewlets"
+	   tal:content="structure viewlet/render" />
+
+<div class="z-cp-nav">
+  <tal:block tal:repeat="item view/data">
+    <metal:block metal:define-macro="level">
+      <div class="z-cp-nav-item"
+	   tal:attributes="class python:item['selected'] and 'z-cp-nav-item-selected' 
+			   or 'z-cp-nav-item'">
+	<div tal:omit-tag="not:item/level|nothing"
+	     tal:attributes="class string:z-cp-level${item/level|nothing}">
+	  <a tal:attributes="href string:${item/configlet/@@absolute_url}/">
+	    <tal:block tal:content="structure item/icon" />
+	    <tal:block tal:content="item/title" i18n:translate="" />
+	  </a>
+	</div>
+      </div>
+      <tal:block tal:repeat="item item/items">
+	<metal:block use-macro="view/template/macros/level"/>
+      </tal:block>
+    </metal:block>
+  </tal:block>
+</div>

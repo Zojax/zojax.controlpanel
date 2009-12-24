@@ -1,0 +1,182 @@
+=======
+CHANGES
+=======
+
+1.5.0 (2009-08-11)
+------------------
+
+- Hide 'Configure' wizard step if configlet schema is empty
+
+- Added i18n:translate attributes to pt files
+
+- Change copyright holder
+
+
+1.4.3 (2009-06-21)
+------------------
+
+- Added 'principals' configlet category
+
+- Fixed wizard support code
+
+
+1.4.2 (2009-06-02)
+------------------
+
+- Moved ContentContainerConfiglet implementation to zojax.content.type package
+
+
+1.4.1 (2009-04-23)
+------------------
+
+- Added 'Content types' configlet category
+
+- Added helper wizard form class 
+
+- Do not use z3c.autoinclude
+
+- Do not inherit ContentContainerConfiglet from ContentContainer
+
+
+1.4.0 (2009-03-12)
+------------------
+
+- Added helper class for creating content container configlet
+
+- Added browser:containerViews for data storage
+
+- CSS Styles updated
+
+
+1.3.3 (2008-11-18)
+------------------
+
+- Mark ConfigletData objects as IAttributeAnnotatable
+
+
+1.3.2 (2008-10-22)
+------------------
+
+- Fixed configlet storage if ISite doesn't exists
+
+- Updated translations: nl, ru
+
+
+1.3.1 (2008-10-07)
+------------------
+
+- Fixed migration script for multiple databases
+
+
+1.3.0 (2008-10-07)
+------------------
+
+- Added default stylesheets
+
+- Configlet data storage api has been refactored.
+
+- Use zojax.controlpanel i18n domain
+
+
+1.2.6 (2008-08-28)
+------------------
+
+- Fixed data storage copy
+
+
+1.2.5 (2008-08-28)
+------------------
+
+- Remove wrong html tag for category view
+
+- Fix configlet storage name
+
+- Added copier for data storage
+
+
+1.2.4 (2008-05-26)
+------------------
+
+- Fixed configlet subcategory + z3c.baseregistry bug
+
+
+1.2.3 (2008-05-14)
+------------------
+
+- Replace 'autoinclude' with 'includeDependendcies'
+
+- Tests updated
+
+
+1.2.2 (2008-04-08)
+------------------
+
+- Fix UI navigation
+
+
+1.2.1 (2008-03-28)
+------------------
+
+- Removed 'principals' configlet category
+
+
+1.2.0 (2008-03-21)
+------------------
+
+- Use zojax.pagelet directive for browser views
+
+- Added i18n
+
+- Moved to svn.zope.org
+
+
+1.1.7 (2008-03-18)
+------------------
+
+- Added functional tests
+
+
+1.1.6 (2008-02-28)
+------------------
+
+- Use z3c.autoinclude
+
+
+1.1.5 (2008-02-22)
+------------------
+
+- Added buildout.cfg for testing
+
+- Added viewlet manager for configlet navigation
+
+
+1.1.4 (2008-02-20)
+------------------
+
+- Use zojax.layoutform
+
+
+1.1.3 (2008-02-0?)
+------------------
+
+- Added 'UI' configuration category
+
+
+1.1.2 (2008-02-04)
+------------------
+
+- Fixed problem with generated class and persistence
+
+- Remove all <grant/> directives
+
+
+1.1.0 (2008-01-31)
+------------------
+
+- Use zojax.layout for rendering
+
+
+1.0.0 (2007-26-07)
+------------------
+
+- Initial release

@@ -1,0 +1,113 @@
+<configure 
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.controlpanel">
+
+  <permission
+     id="zojax.Configure"
+     title="Configure control panel's configlets." />
+
+  <utility
+     provides=".interfaces.IConfiglet"
+     factory=".root.RootConfiglet" />
+
+  <class class=".root.RootConfiglet">
+    <require
+       permission="zope.Public"
+       interface=".interfaces.IConfiglet
+		  zope.interface.common.mapping.IEnumerableMapping" />
+  </class>
+
+  <!-- configlet data -->
+  <adapter factory=".storage.getConfigletData" />
+  <adapter factory=".storage.getConfigletDataStorage" />
+  <adapter factory=".storage.DefaultConfigletDataFactory" />
+
+  <class class=".storage.ConfigletData">
+    <require
+       permission="zope.ManageApplication"
+       interface="zope.app.container.interfaces.IContainer" />
+  </class>
+
+  <class class=".storage.ConfigletDataStorage">
+    <require
+       permission="zope.ManageApplication"
+       interface="zope.app.container.interfaces.IContainer" />
+  </class>
+
+  <!-- default categories -->
+  <zojax:configlet
+     name="system"
+     schema=".interfaces.ISystemConfiglet"
+     title="System configuration"
+     description="This area allows you to configure system."
+     provides=".interfaces.ICategory"
+     permission="zope.Public" />
+
+  <zojax:configlet
+     name="ui"
+     schema=".interfaces.IUIConfiguration"
+     title="User interface configuration"
+     description="This area allows you to configure portal look&amp;feel."
+     provides=".interfaces.ICategory"
+     permission="zope.Public" />
+
+  <zojax:configlet
+     name="content"
+     schema=".interfaces.IContentConfiglet"
+     title="Content types"
+     description="This area allows you to configure portal content types."
+     provides=".interfaces.ICategory"
+     permission="zope.Public" />
+
+  <zojax:configlet
+     name="principals"
+     schema=".interfaces.IPrincipalsManagement"
+     title="Principals management"
+     description="Portal principals management panel."
+     permission="zojax.Configure" />
+
+  <!-- settings view -->
+  <adapter
+     name="settings"
+     for="zope.app.component.interfaces.ISite *"
+     provides="zope.interface.Interface"
+     factory=".root.getSettings" />
+
+  <!-- Configlet publisher -->
+  <adapter
+     for=".interfaces.IConfiglet *"
+     factory="z3c.traverser.traverser.PluggableTraverser"
+     provides="zope.publisher.interfaces.IPublishTraverse" />
+
+  <subscriber
+     for=".interfaces.IConfiglet *"
+     provides="z3c.traverser.interfaces.ITraverserPlugin"
+     factory="z3c.traverser.traverser.ContainerTraverserPlugin" />
+
+  <include package=".browser" />
+
+  <!-- Registering documentation with API doc -->
+  <configure
+     xmlns:apidoc="http://namespaces.zope.org/apidoc"
+     xmlns:zcml="http://namespaces.zope.org/zcml"
+     zcml:condition="have apidoc">
+
+    <apidoc:bookchapter
+       id="zojax-controlpanel"
+       title="zojax.controlpanel - Control Panel"
+       doc_path="README.txt"
+       parent="zojax" />
+  </configure>
+
+  <!-- generations -->
+  <utility
+     name="zojax.controlpanel"
+     provides="zope.app.generations.interfaces.ISchemaManager"
+     component=".generations.schemaManager" />
+
+  <!-- translations -->
+  <i18n:registerTranslations directory="locales"/>
+
+</configure>

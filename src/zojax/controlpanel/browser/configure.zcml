@@ -1,0 +1,103 @@
+<configure 
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.controlpanel">
+
+  <zojax:layout
+     name="workspace"
+     layout="portal"
+     for="..interfaces.IRootConfiglet"
+     template="layout.pt" />
+
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IConfiglet"
+     file="preferences-system.png" />
+
+  <browser:defaultView
+     name="index.html"
+     for="..interfaces.IConfiglet" />
+
+  <browser:menuItem
+     for="..interfaces.IConfiglet"
+     title="View"
+     menu="zmi_views"
+     action="index.html"
+     permission="zope.Public" />
+
+  <zojax:pagelet
+     name="index.html"
+     for="..interfaces.IConfiglet"
+     class=".configlet.Configlet"
+     permission="zope.Public" />
+
+  <zojax:pagelet
+     name="index.html"
+     for="..interfaces.ICategory"
+     template="category.pt"
+     class=".category.CategoryView"
+     permission="zope.Public" />
+
+  <!-- navigation -->
+  <browser:viewletManager
+     name="zojax.controlpanel-navigation"
+     provides=".interfaces.IConfigletNavigation"
+     template="navigation.pt"
+     class=".navigation.Navigation"
+     permission="zope.Public" />
+
+  <!-- for ILocalSiteManager -->
+  <browser:menuItem
+     for="zope.app.component.interfaces.ISite"
+     menu="zmi_actions"
+     title="System settings"
+     action="settings/"
+     permission="zojax.Configure" />
+
+  <browser:containerViews
+     for="..interfaces.IConfigletDataStorage"
+     index="zojax.Configure"
+     contents="zojax.Configure" />
+
+  <!-- configlet breadcrumb -->
+  <adapter 
+     zcml:condition="installed z3c.breadcrumb"
+     factory=".breadcrumb.ConfigletBreadcrumb" />
+
+  <!-- wizard -->
+  <zcml:configure zcml:condition="installed zojax.wizard">
+    <zojax:pageletType
+       name="wizard.step"
+       interface="zojax.wizard.interfaces.IWizardStep" />
+
+    <zojax:pagelet
+       name="configlet"
+       type="wizard.step"
+       for="* .interfaces.IConfigletEditWizard"
+       class=".wizard.ConfigletEditStep"
+       weight="100"
+       permission="zope.View" />
+
+    <adapter
+       name="next"
+       for="* .wizard.ConfigletEditWizard *"
+       provides="zojax.wizard.interfaces.IWizardButton"
+       factory=".wizard.next" />
+
+    <adapter
+       name="save"
+       for="* .wizard.ConfigletEditWizard *"
+       provides="zojax.wizard.interfaces.IWizardButton"
+       factory=".wizard.save" />
+  </zcml:configure>
+
+  <!-- css styles -->
+  <zojax:resourceinclude
+     name="zojax-controlpanel.css"
+     library="zojax"
+     type="stylesheet"
+     file="styles.css" filetype="zrt" />
+
+</configure>

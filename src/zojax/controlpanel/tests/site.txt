@@ -1,0 +1,61 @@
+==============
+Site copy/move
+==============
+
+  >>> from zope import component, interface
+  >>> from zope.proxy import removeAllProxies
+  >>> from zope.app.folder.folder import Folder
+  >>> from zope.app.component.site import LocalSiteManager
+  >>> from zope.component.eventtesting import getEvents, clearEvents
+  >>> from zope.app.component.hooks import getSite, setSite
+  >>> from zojax.controlpanel.interfaces import IConfiglet
+
+  >>> root = getSite()
+
+  >>> site = Folder()
+
+  >>> root['site'] = site
+  >>> root['subfolder'] = Folder()
+
+  >>> sm = LocalSiteManager(site)
+  >>> site.setSiteManager(sm)
+
+  >>> class IMyUtility(interface.Interface):
+  ...     pass
+
+
+Register persistent utility
+
+  >>> setSite(site)
+
+  >>> configlet = component.getUtility(IConfiglet)
+
+  >>> myutility = Folder()
+  >>> interface.directlyProvides(myutility, IMyUtility)
+
+  >>> configlet.data['myutility'] = Folder()
+  >>> sm.registerUtility(myutility, IMyUtility, 'my')
+
+  >>> sm.getUtility(IMyUtility, name='my') is myutility
+  True
+
+Copy site
+
+  >>> clearEvents()
+
+  >>> from zope.copypastemove.interfaces import IObjectCopier
+  >>> copier = IObjectCopier(root['site'])
+  >>> copier.copyTo(root['subfolder'])
+  u'site'
+
+  >>> newsite = root['subfolder']['site']
+  >>> newsm = newsite.getSiteManager()
+  >>> configlet = newsm.getUtility(IConfiglet)
+
+  newsm.getUtility(IMyUtility, name='my') is myutility
+  False
+
+  newsm.getUtility(IMyUtility, name='my') is configlet.data['myutility']
+  True
+
+getEvents()

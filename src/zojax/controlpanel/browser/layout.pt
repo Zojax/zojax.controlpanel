@@ -1,0 +1,16 @@
+<div class="z-controlpanel-wrapper">
+  <div id="z-controlpanel"
+       tal:define="context nocall:maincontext;
+		   nav provider:zojax.controlpanel-navigation;
+		   noNav not:nav; rendered view/render;
+		   dummy resourcepackage:zojax">
+    <table class="z-cp-layout" tal:omit-tag="noNav">
+      <tr tal:omit-tag="noNav">
+	<td class="z-cp-nav-wrapper"
+	    tal:condition="nav" tal:content="structure nav"></td>
+	<td id="z-portal-workspace"
+	    tal:omit-tag="noNav" tal:content="structure rendered"></td>
+      </tr>
+    </table>
+  </div>
+</div>

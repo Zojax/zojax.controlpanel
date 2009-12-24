@@ -1,0 +1,28 @@
+<div class="z-cp-frame" tal:define="configlets view/data" 
+     i18n:domain="zojax.controlpanel">
+  <h1 class="z-cp-title" i18n:translate=""
+      tal:content="context/__title__">Configlet category</h1>
+  <div class="z-cp-description" i18n:translate=""
+       tal:content="context/__description__">Description</div>
+
+  <div tal:condition="not:configlets" i18n:translate="">
+    There are no configlets in this category.
+  </div>
+
+  <ul class="z-cp-listing" tal:condition="configlets" metal:define-macro="configlets">
+    <li tal:repeat="configlet configlets">
+      <div class="z-cp-icon">
+	<tal:block tal:content="structure configlet/icon|nothing" />
+      </div>
+      <div class="z-cp-details">
+	<a tal:attributes="href string:${configlet/configlet/@@absolute_url}/"
+	   tal:content="configlet/title" i18n:translate=""></a>
+	<div><tal:block tal:content="configlet/description" 
+			i18n:translate="" /> &nbsp;</div>
+	<tal:block define="configlets configlet/items" condition="configlets">
+	  <metal:block use-macro="view/template/macros/configlets" />
+	</tal:block>
+      </div>
+    </li>
+  </ul>
+</div>
