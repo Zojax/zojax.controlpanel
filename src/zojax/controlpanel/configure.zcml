@@ -56,8 +56,8 @@
   <zojax:configlet
      name="content"
      schema=".interfaces.IContentConfiglet"
-     title="Content types"
-     description="This area allows you to configure portal content types."
+     title="Content management"
+     description="This area allows you to configure content management related settings."
      provides=".interfaces.ICategory"
      permission="zope.Public" />
 

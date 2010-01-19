@@ -17,7 +17,10 @@ $Id$
 """
 from zope.component import queryMultiAdapter
 from zope.viewlet.manager import ViewletManagerBase
-from zojax.controlpanel.interfaces import IConfiglet, IRootConfiglet
+
+
+from zojax.content.type.interfaces import IContentContainer
+from zojax.controlpanel.interfaces import IConfiglet, IRootConfiglet, ICategory
 
 
 class Navigation(ViewletManagerBase):
@@ -36,13 +39,9 @@ class Navigation(ViewletManagerBase):
         if context is not None:
             self.context = context
         else:
-            self.data = []
             self.isRoot = True
-            return
 
         self.isRoot = IRootConfiglet.providedBy(context)
-        if self.isRoot:
-            return
 
         path = []
         parent = context
@@ -52,42 +51,50 @@ class Navigation(ViewletManagerBase):
 
         self.root, path = path[0], path[1:]
 
-        self.data = self._process(self.root, path)
+        self.data = self._process(self.root)
 
-    def _process(self, context, path, level=1):
+    def _process(self, context, level=1, parent=None):
         request = self.request
 
-        if path:
-            data = []
-            for name, configlet in context.items():
-                if not IConfiglet.providedBy(configlet) or \
-                        not configlet.isAvailable():
-                    continue
+        data = []
+        for name, configlet in context.items():
+            if not IConfiglet.providedBy(configlet) or \
+                    not configlet.isAvailable():
+                continue
 
-                info = {'name': name,
-                        'title': configlet.__title__,
-                        'icon': queryMultiAdapter(
-                             (configlet, request), name='zmi_icon'),
-                        'items': (),
-                        'selected': False,
-                        'configlet': configlet,
-                        'level': level}
+            info = {'name': name,
+                    'title': configlet.__title__,
+                    'icon': queryMultiAdapter(
+                         (configlet, request), name='zmi_icon'),
+                    'items': (),
+                    'selected': False,
+                    'hasSelected': False,
+                    'isLink': bool(list(configlet.__schema__)) or \
+                                IContentContainer.providedBy(configlet) or \
+                                not ICategory.providedBy(configlet),
+                    'parent': parent,
+                    'configlet': configlet,
+                    'level': level}
 
-                if configlet.__id__ == path[0].__id__:
-                    info['items'] = self._process(configlet, path[1:], level+1)
+            if configlet.__id__ == self.context.__id__:
+                info['selected'] = True
+                info['hasSelected'] = True
+                p = parent
+                while p is not None:
+                    p['hasSelected'] = True
+                    if p['cssClass'].endswith(' closed'):
+                        p['cssClass'] = p['cssClass'][0:-7]
+                    p = p['parent']
+            info['cssClass'] = info['selected'] and 'selected' \
+                                or ''
 
-                if configlet.__id__ == self.context.__id__:
-                    info['selected'] = True
-                    info['items'] = self._process(configlet, [configlet], level+1)
+            info['items'] = self._process(configlet, level+1, info)
 
-                data.append((configlet.__title__, info))
+            if not info['hasSelected'] and info['items']:
+                info['cssClass'] += ' closed'
 
-            data.sort()
-            data = [info for t, info in data]
-            return data
+            data.append((configlet.__title__, info))
 
-    def render(self):
-        if self.isRoot:
-            return u''
-        else:
-            return super(Navigation, self).render()
+        data.sort()
+        data = [info for t, info in data]
+        return data
