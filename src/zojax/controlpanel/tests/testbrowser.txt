@@ -5,7 +5,7 @@ Control Panel
 We can access controlpanel with following url http://localhost/settings/
 'setting' name availabel for every ISite object.
 
-Let's demonstrate how we can access controlpanel. 
+Let's demonstrate how we can access controlpanel.
 
   >>> from zope import component
   >>> from zope.testbrowser.testing import Browser
@@ -40,16 +40,7 @@ We should have 'System settings' link in ISite actions menu
   ...System settings...
   <BLANKLINE>
 
-Configlet categories, by default only first level of categories is
-shown. And only categories that have visible configlets.
-
-  >>> 'Category1' in browser.contents
-  False
-
-  >>> 'Category2' in browser.contents
-  True
-
-Also controlponal show configlets in toplevel categories
+Controlponal show configlets in toplevel categories
 
   >>> 'Configlet1' in browser.contents
   True
