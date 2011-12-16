@@ -1,0 +1,98 @@
+##############################################################################
+#
+# Copyright (c) 2003-2004 Zope Corporation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Sun Dec 11 10:36:47 2011\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/controlpanel/browser/category.pt:8
+msgid "There are no configlets in this category."
+msgstr ""
+
+#: src/zojax/controlpanel/browser/configure.zcml:23
+msgid "View"
+msgstr ""
+
+#: src/zojax/controlpanel/browser/wizard.py:51
+msgid "Configure"
+msgstr ""
+
+#: src/zojax/controlpanel/browser/wizard.py:52
+msgid "Configure configlet"
+msgstr ""
+
+#: src/zojax/controlpanel/browser/wizard.py:67
+msgid "Next"
+msgstr ""
+
+#: src/zojax/controlpanel/browser/wizard.py:74
+msgid "Save"
+msgstr ""
+
+#: src/zojax/controlpanel/configlettype.py:193
+msgid "Field is readonly"
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:40
+msgid "This area allows you to configure system."
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:40
+msgid "System configuration"
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:48
+msgid "User interface configuration"
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:48
+msgid "This area allows you to configure portal look&feel."
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:56
+msgid "This area allows you to configure content management related settings."
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:56
+msgid "Content management"
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:64
+msgid "Principals management"
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:64
+msgid "Portal principals management panel."
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:7
+msgid "Configure control panel's configlets."
+msgstr ""
+
+#: src/zojax/controlpanel/configure.zcml:97
+msgid "zojax.controlpanel - Control Panel"
+msgstr ""
+
+#: src/zojax/controlpanel/root.py:36
+#: src/zojax/controlpanel/browser/configure.zcml:52
+msgid "System settings"
+msgstr ""
+
