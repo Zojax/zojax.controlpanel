@@ -33,7 +33,7 @@ New site in subfolder
 IConfiglet utility is global
 
   >>> newconfiglet = component.getUtility(IConfiglet)
-  >>> configlet == newconfiglet
+  >>> configlet == newconfiglet == newsm.getUtility(IConfiglet)
   True
 
 But IConfigletData utility is not global, using current site
@@ -63,12 +63,12 @@ Adding new configlet
   ...      schema="zojax.controlpanel.tests.interfaces.IConfiglet1"
   ...      title="Configlet1" />
   ... </configure>""", context)
-  >>> newsm.getUtility(IConfiglet1).param1 = u'non default param1'
-  >>> newsm.getUtility(IConfiglet1).param1
+  >>> component.getUtility(IConfiglet1).param1 = u'non default param1'
+  >>> component.getUtility(IConfiglet1).param1
   u'non default param1'
 
 Copy site in root folder and check data storages
-from zope.component.eventtesting import getEvents, clearEvents
+
   >>> clearEvents()
   >>> from zope.copypastemove.interfaces import IObjectCopier
   >>> copier = IObjectCopier(root['site'])
@@ -76,32 +76,28 @@ from zope.component.eventtesting import getEvents, clearEvents
   u'site-2'
   >>> events = getEvents()
   >>> newsitecopy = root['site-2']
-  >>> newcopysm = newsitecopy.getSiteManager()
-  >>> newconfiglet, newconfigletcopy = newsm.getUtility(IConfiglet), newcopysm.getUtility(IConfiglet)
-  >>> newconfiglet == newconfigletcopy
-  True
   >>> setSite(newsite)
-  >>> newconfigletdata = IConfigletData(newconfiglet)
+  >>> newconfigletdata = IConfigletData(component.getUtility(IConfiglet))
   >>> setSite(newsitecopy)
-  >>> newcopyconfigletdata = IConfigletData(newconfigletcopy)
+  >>> newcopyconfigletdata = IConfigletData(component.getUtility(IConfiglet))
   >>> newsitecopy != newconfigletdata
   True
   
 Lets check out custom param
   >>> setSite(newsitecopy)
-  >>> newcopysm.getUtility(IConfiglet1).param1
+  >>> component.getUtility(IConfiglet1).param1
   u'default param1'
-  >>> newcopysm.getUtility(IConfiglet1).param1 = u'custom param1'
-  >>> newcopysm.getUtility(IConfiglet1).param1
+  >>> component.getUtility(IConfiglet1).param1 = u'custom param1'
+  >>> component.getUtility(IConfiglet1).param1
   u'custom param1'
   >>> setSite(newsite)
-  >>> newsm.getUtility(IConfiglet1).param1
+  >>> component.getUtility(IConfiglet1).param1
   u'non default param1'
-  >>> newsm.getUtility(IConfiglet1).param1 = u'original param1'
+  >>> component.getUtility(IConfiglet1).param1 = u'original param1'
   >>> setSite(newsitecopy)
-  >>> newcopysm.getUtility(IConfiglet1).param1
+  >>> component.getUtility(IConfiglet1).param1
   u'custom param1'
   >>> setSite(site)
-  >>> sm.getUtility(IConfiglet1).param1
+  >>> component.getUtility(IConfiglet1).param1
   u'default param1'
   
