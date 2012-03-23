@@ -23,27 +23,14 @@ from zope.app.component.hooks import getSite, setSite
 from zojax.controlpanel import storage, root, interfaces
 
 
-controlPanelData = None
-
-@component.adapter(interface.Interface)
-@interface.implementer(interfaces.IConfigletDataStorage)
-def getConfigletDataStorage(siteManager):
-    global controlPanelData
-    if controlPanelData is None:
-        controlPanelData = storage.ConfigletDataStorage()
-    return controlPanelData
-
-
 def setUpControlPanel():
     setup.setUpTraversal()
     setup.setUpSiteManagerLookup()
-
+    
     component.provideAdapter(root.getSettings, name='settings')
     component.provideAdapter(AttributeAnnotations)
     component.provideUtility(root.RootConfiglet(), interfaces.IConfiglet)
-
-    global controlPanelData
-    controlPanelData = None
+    
     component.provideAdapter(storage.getConfigletData)
-    component.provideAdapter(getConfigletDataStorage)
+    component.provideAdapter(storage.getConfigletDataStorage)
     component.provideAdapter(storage.DefaultConfigletDataFactory)
