@@ -9,53 +9,95 @@ Site copy/move
   >>> from zope.component.eventtesting import getEvents, clearEvents
   >>> from zope.app.component.hooks import getSite, setSite
   >>> from zojax.controlpanel.interfaces import IConfiglet
+  >>> from zojax.controlpanel.tests.interfaces import IConfiglet1
+
+Root site
 
   >>> root = getSite()
-
   >>> site = Folder()
-
   >>> root['site'] = site
   >>> root['subfolder'] = Folder()
-
   >>> sm = LocalSiteManager(site)
   >>> site.setSiteManager(sm)
-
-  >>> class IMyUtility(interface.Interface):
-  ...     pass
-
-
-Register persistent utility
-
-  >>> setSite(site)
-
   >>> configlet = component.getUtility(IConfiglet)
+  
+New site in subfolder
 
-  >>> myutility = Folder()
-  >>> interface.directlyProvides(myutility, IMyUtility)
-
-  >>> configlet.data['myutility'] = Folder()
-  >>> sm.registerUtility(myutility, IMyUtility, 'my')
-
-  >>> sm.getUtility(IMyUtility, name='my') is myutility
+  >>> root['subfolder']['site'] = Folder()
+  >>> newsite = root['subfolder']['site']
+  >>> newsm = LocalSiteManager(newsite)
+  >>> newsite.setSiteManager(newsm)
+  >>> sm != newsm
   True
 
-Copy site
+IConfiglet utility is global
+
+  >>> newconfiglet = component.getUtility(IConfiglet)
+  >>> configlet == newconfiglet == newsm.getUtility(IConfiglet)
+  True
+
+But IConfigletData utility is not global, using current site
+
+  >>> from zojax.controlpanel.interfaces import IConfigletDataStorage, IConfigletData
+  >>> IConfigletDataStorage(sm) != IConfigletDataStorage(newsm)
+  True
+  >>> setSite(site)
+  >>> configletdata = IConfigletData(configlet)
+  >>> setSite(newsite)
+  >>> newconfigletdata = IConfigletData(newconfiglet)
+  >>> setSite(None)
+  >>> configletdata != newconfigletdata
+  True
+
+Adding new configlet
+
+  >>> setSite(newsite)
+  >>> import zojax.controlpanel
+  >>> from zope.configuration import xmlconfig
+  >>> context = xmlconfig.file('meta.zcml', zojax.controlpanel)
+  >>> context = xmlconfig.string("""
+  ... <configure xmlns:zojax="http://namespaces.zope.org/zojax"
+  ...    i18n_domain="zope">
+  ...   <zojax:configlet
+  ...      name="configlet2"
+  ...      schema="zojax.controlpanel.tests.interfaces.IConfiglet1"
+  ...      title="Configlet1" />
+  ... </configure>""", context)
+  >>> component.getUtility(IConfiglet1).param1 = u'non default param1'
+  >>> component.getUtility(IConfiglet1).param1
+  u'non default param1'
+
+Copy site in root folder and check data storages
 
   >>> clearEvents()
-
   >>> from zope.copypastemove.interfaces import IObjectCopier
   >>> copier = IObjectCopier(root['site'])
-  >>> copier.copyTo(root['subfolder'])
-  u'site'
-
-  >>> newsite = root['subfolder']['site']
-  >>> newsm = newsite.getSiteManager()
-  >>> configlet = newsm.getUtility(IConfiglet)
-
-  newsm.getUtility(IMyUtility, name='my') is myutility
-  False
-
-  newsm.getUtility(IMyUtility, name='my') is configlet.data['myutility']
+  >>> copier.copyTo(root)
+  u'site-2'
+  >>> events = getEvents()
+  >>> newsitecopy = root['site-2']
+  >>> setSite(newsite)
+  >>> newconfigletdata = IConfigletData(component.getUtility(IConfiglet))
+  >>> setSite(newsitecopy)
+  >>> newcopyconfigletdata = IConfigletData(component.getUtility(IConfiglet))
+  >>> newsitecopy != newconfigletdata
   True
-
-getEvents()
+  
+Lets check out custom param
+  >>> setSite(newsitecopy)
+  >>> component.getUtility(IConfiglet1).param1
+  u'default param1'
+  >>> component.getUtility(IConfiglet1).param1 = u'custom param1'
+  >>> component.getUtility(IConfiglet1).param1
+  u'custom param1'
+  >>> setSite(newsite)
+  >>> component.getUtility(IConfiglet1).param1
+  u'non default param1'
+  >>> component.getUtility(IConfiglet1).param1 = u'original param1'
+  >>> setSite(newsitecopy)
+  >>> component.getUtility(IConfiglet1).param1
+  u'custom param1'
+  >>> setSite(site)
+  >>> component.getUtility(IConfiglet1).param1
+  u'default param1'
+  
